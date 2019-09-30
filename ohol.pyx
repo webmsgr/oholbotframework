@@ -4,7 +4,7 @@ passes them to bot code that allows for packet injection and packet reading"""
 cdef extern from "<stdio.h>" nogil:
     int sscanf   (const char *s, const char *template, ...)
 cdef extern from "OneLife/gameSource/GridPos.h":
-    struct GridPos:
+    ctypedef struct GridPos:
         int x
         int y
     
