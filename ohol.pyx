@@ -30,7 +30,7 @@ ctypedef enum messageType:
     VOGX,
     PHOTO,
     UNKNOWN
-cdef struct ClientMessage:
+cdef struct s_ClientMessage:
         messageType type
         int x, y, c, i, id
         int trigger
@@ -45,3 +45,4 @@ cdef struct ClientMessage:
         char *bugText
         # for MOVE messages
         int sequenceNumber
+ctypedef s_ClientMessage ClientMessage
