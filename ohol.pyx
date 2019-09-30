@@ -1,2 +1,33 @@
 """A One Hour One Life decoder/encoder server, recives messages from the client and 
 passes them to bot code that allows for packet injection and packet reading"""
+cpdef enum messageType {
+	MOVE,
+    USE,
+    SELF,
+    BABY,
+    UBABY,
+    REMV,
+    SREMV,
+    DROP,
+    KILL,
+    SAY,
+    EMOT,
+    JUMP,
+    DIE,
+    GRAVE,
+    OWNER,
+    FORCE,
+    MAP,
+    TRIGGER,
+    BUG,
+    PING,
+    VOGS,
+    VOGN,
+    VOGP,
+    VOGM,
+    VOGI,
+    VOGT,
+    VOGX,
+    PHOTO,
+    UNKNOWN
+    } messageType;
