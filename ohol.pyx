@@ -3,10 +3,11 @@ passes them to bot code that allows for packet injection and packet reading"""
 
 cdef extern from "<stdio.h>" nogil:
     int sscanf   (const char *s, const char *template, ...)
-cdef struct s_GridPos:
-    int x
-    int y
-ctypedef s_GridPos GridPos
+cdef extern from "OneLife/gameSource/GridPos.h":
+    struct GridPos:
+        int x
+        int y
+    
 
 ctypedef enum messageType:
     MOVE,

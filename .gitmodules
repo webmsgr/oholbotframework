@@ -4,3 +4,6 @@
 [submodule "minorGems"]
 	path = minorGems
 	url = https://github.com/jasonrohrer/minorGems
+[submodule "OneLife"]
+	path = OneLife
+	url = https://github.com/jasonrohrer/OneLife
