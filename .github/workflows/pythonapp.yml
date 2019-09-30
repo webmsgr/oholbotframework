@@ -17,9 +17,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Submodules
+      run: git submodule update
     - name: cythonize
       run: |
-        git submodule update
         pip install cython
         python3 setup.py build_ext --inplace
     - uses: actions/upload-artifact@master
