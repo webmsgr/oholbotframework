@@ -1,0 +1,6 @@
+[submodule "OneLifeData"]
+	path = OneLifeData
+	url = https://github.com/jasonrohrer/OneLifeData7
+[submodule "minorGems"]
+	path = minorGems
+	url = https://github.com/jasonrohrer/minorGems
