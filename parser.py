@@ -76,11 +76,24 @@ class No_life_tokens(Rejected):
         self.type = "REJECTED_NO_LIFE_TOKENS"
     def parse(self,data):
         self.data = data
+class Login(BasePacket):
+    def __init__(self):
+        super().__init__("s")
+        self.type = "CLIENT_LOGIN"
+    def parse(self,data):
+        self.email,self.password_hash,self.account_key_hash,self.tutorial_number = data[1:5]
+        self.twins = False
+        if len(data) > 5:
+            self.twin_code_hash = data[5]
+            self.twin_count = data[6]
+            self.twins = True
+
 packobj = {"FM":Frame,
             "SHUTDOWN":Shutdown,
             "SERVER_FULL":Server_full,
             "SN":ServerLogin,
             "ACCEPTED":Accepted,
             "REJECTED":Rejected,
-            "NO_LIFE_TOKENS":No_life_tokens
+            "NO_LIFE_TOKENS":No_life_tokens,
+            "LOGIN": Login
             }
