@@ -118,8 +118,8 @@ def Route():
                 if len(buf) == 0:
                     running = False
                 client.send(buf)
-    except:
-        pass
+        except:
+            pass
     try:
         client.close()
     except:
