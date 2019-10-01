@@ -103,7 +103,7 @@ def Route():
     listener.listen(1)
     client, caddr = listener.accept()
     listener.close()
-    server = sock.socket()
+    server = socket.socket()
     server.connect((SERV_ADDR, SERV_PORT))
     running = True
     while running:
