@@ -3,20 +3,20 @@
 passes them to bot code that allows for packet injection and packet reading"""
 
 import select
-
+import parser
 import socket
-
 import time
 
 
-DEF TIME_WAIT = 0.01
-DEF BIND_ADDR = ''
-DEF BIND_PORT = 8006
-DEF SERV_ADDR = 'server1.onehouronelife.com'
-DEF SERV_PORT = 8005
+TIME_WAIT = 0.01
+BIND_ADDR = ''
+BIND_PORT = 8006
+SERV_ADDR = 'server1.onehouronelife.com'
+SERV_PORT = 8005
 
 
 def Route():
+    myparser = parser.Parser()
     listener = socket.socket()
     listener.bind((BIND_ADDR, BIND_PORT))
     listener.listen(1)
@@ -29,12 +29,24 @@ def Route():
         try:
             rlist = select.select([client, server], [], [])[0]
             if client in rlist:
-                buf = client.recv(4096)
+                stream = b""
+                buf = b" "
+                while buf != b"":
+                    buf = client.recv(4096)
+                    stream += buf
+                buf = stream
+                myparser.parsepacket(buf.decode("ascii"),"s")
                 if len(buf) == 0:
                     running = False
                 server.send(buf)
             if server in rlist and running:
-                buf = server.recv(4096)
+                stream = b""
+                buf = b" "
+                while buf != b"":
+                    buf = server.recv(4096)
+                    stream += buf
+                buf = stream
+                myparser.parsepacket(buf.decode("ascii"),"c")
                 if len(buf) == 0:
                     running = False
                 client.send(buf)
@@ -48,5 +60,6 @@ def Route():
         server.close()
     except:
         pass
+    return myparser.parsedserver, myparser.parsedclient
 
 
