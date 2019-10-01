@@ -1,10 +1,7 @@
 """Parse client/server packets into a object and allow converting from the object to a packet"""
 class Parser():
     def __init__(self):
-        self.serverfeed = []
-        self.clientfeed = []
-        self.parsedserver = []
-        self.parsedclient = []
+        self.parsed = []
     def parsepacket(self,packet):
         packets = packet.split("#")
         if packets[0] == packet:
@@ -12,6 +9,7 @@ class Parser():
             packet = [x for x in packet if x.strip() != ""]
             packetobj = packobj.get(packet[0],UnknownPacket)()
             packetobj.parse(packet)
+            self.parsed.append(packetobj)
         else:
             [self.parsepacket(x) for x in packets if x.strip() != ""]
 class BasePacket:
