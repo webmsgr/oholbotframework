@@ -79,6 +79,7 @@ class Login(BasePacket):
         super().__init__("s")
         self.type = "CLIENT_LOGIN"
     def parse(self,data):
+        data = data[1].split(" ")
         self.email,self.password_hash,self.account_key_hash,self.tutorial_number = data[1:5]
         self.twins = False
         if len(data) > 5:
