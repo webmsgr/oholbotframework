@@ -60,6 +60,6 @@ def Route():
         server.close()
     except:
         pass
-    return myparser.parsedserver, myparser.parsedclient
+    return myparser.parsed
 
 
