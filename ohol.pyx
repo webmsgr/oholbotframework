@@ -89,11 +89,11 @@ import socket
 import time
 
 
-TIME_WAIT = 0.01
-BIND_ADDR = ''
-BIND_PORT = 8006
-SERV_ADDR = 'server1.onehouronelife.com'
-SERV_PORT = 8005
+DEF TIME_WAIT = 0.01
+DEF BIND_ADDR = ''
+DEF BIND_PORT = 8006
+DEF SERV_ADDR = 'server1.onehouronelife.com'
+DEF SERV_PORT = 8005
 
 
 def Route():
