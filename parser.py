@@ -7,9 +7,10 @@ class Parser():
         self.parsedserver = []
         self.parsedclient = []
 class BasePacket():
-    def __init__(self,rawpacket)
+    def __init__(self,rawpacket,direction)
         self.rawpacket = rawpacket
+        self.direct = direction
 class Frame(BasePacket):
     def __init__(self):
-        super().__init__("FM\n#")
+        super().__init__("FM\n#","c") # send to client
         
