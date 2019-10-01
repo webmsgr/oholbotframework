@@ -3,7 +3,7 @@
 passes them to bot code that allows for packet injection and packet reading"""
 
 import select
-import parser
+import oholparser as parser
 import socket
 import time
 
