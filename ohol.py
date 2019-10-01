@@ -35,7 +35,7 @@ def Route():
                     buf = client.recv(4096)
                     stream += buf
                 buf = stream
-                myparser.parsepacket(buf.decode("ascii"),"s")
+                myparser.parsepacket(buf.decode("ascii"))
                 if len(buf) == 0:
                     running = False
                 server.send(buf)
@@ -46,7 +46,7 @@ def Route():
                     buf = server.recv(4096)
                     stream += buf
                 buf = stream
-                myparser.parsepacket(buf.decode("ascii"),"c")
+                myparser.parsepacket(buf.decode("ascii"))
                 if len(buf) == 0:
                     running = False
                 client.send(buf)
