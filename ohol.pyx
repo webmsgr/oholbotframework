@@ -79,27 +79,57 @@ cpdef parseMess(name,message):
     return mes.type
 
 
+#! /usr/bin/env python3
+
+
+import select
 
 import socket
 
-HOST = ''                 # Symbolic name meaning all available interfaces
-PORT = 8006            # Arbitrary non-privileged port
-outHOST = 'server1.onehouronelife.com'    # The remote host
-outPORT = 8005              # The same port as used by the server
+import time
 
-def server():
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as ss:
-            s.bind((HOST, PORT))
-            s.listen(1)
-            conn, addr = s.accept()
-            with conn:
-                print('Connected by', addr)
-                ss.connect((outHOST, outPORT))
-                while True:
-                    data = conn.recv(1024)
-                    if not data: break
-                    ss.sendall(data)
-                    data = ss.recv(1024)
-                    if not data: break
-                    conn.sendall(ss)
+
+TIME_WAIT = 0.01
+BIND_ADDR = ''
+BIND_PORT = 8006
+SERV_ADDR = 'server1.onehouronelife.com'
+SERV_PORT = 8005
+
+
+def Route():
+    listener = socket.socket()
+    listener.bind((BIND_ADDR, BIND_PORT))
+    listener.listen(1)
+    client, caddr = listener.accept()
+    listener.close()
+    server = sock.socket()
+    server.connect((SERV_ADDR, SERV_PORT))
+    running = True
+    while running:
+        try:
+            rlist = select.select([client, server], [], [])[0]
+            if client in rlist:
+                buf = client.recv(4096)
+                if len(buf) == 0:
+                    running = False
+                # Parse, modify, or halt traffic here
+                server.send(buf)
+            if server in rlist and running:
+                buf = server.recv(4096)
+                if len(buf) == 0:
+                    running = False
+                # Parse, modify, or halt traffic here
+                client.send(buf)
+    except:
+        pass
+    try:
+        client.close()
+    except:
+        pass
+    try:
+
+        server.close()
+    except:
+        pass
+
+
