@@ -107,7 +107,7 @@ def Route():
     running = True
     while running:
         try:
-            rlist = select.select([client, server], [], [])[0]
+            rlist = select.select([client, server], [], [])[0]
             if client in rlist:
                 buf = client.recv(4096)
                 if len(buf) == 0:
