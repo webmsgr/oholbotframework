@@ -6,7 +6,10 @@ class Parser():
         self.clientfeed = []
         self.parsedserver = []
         self.parsedclient = []
-class Packet():
-    def __init__(self,type,data):
-        self.type = type
-        self.data = data
+class BasePacket():
+    def __init__(self,rawpacket)
+        self.rawpacket = rawpacket
+class Frame(BasePacket):
+    def __init__(self):
+        super().__init__("FM\n#")
+        
