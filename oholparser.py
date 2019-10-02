@@ -121,5 +121,5 @@ packobj = {b"FM":Frame,
             b"NO_LIFE_TOKENS":No_life_tokens,
             b"LOGIN": Login,
             b"PU": PlayerInfo,
-            b"PS": PlayerSays
+            b"PS": PlayerSaid
             }
