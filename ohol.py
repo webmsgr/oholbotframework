@@ -13,8 +13,7 @@ BIND_ADDR = ''
 BIND_PORT = 8006
 SERV_ADDR = 'server1.onehouronelife.com'
 SERV_PORT = 8005
-
-
+# @todo add hooks for packet injection/modifing
 def Route():
     myparser = parser.Parser()
     listener = socket.socket()
