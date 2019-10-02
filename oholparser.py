@@ -3,19 +3,17 @@ class Parser():
     def __init__(self):
         self.parsed = []
     def parsepacket(self,packet):
-        # @todo fix packet parser
-        # @body a new implemtation would allow for the parsing of map chunks and compressed messages, both of which show up as two packets
         packets = packet.split(b"#")
-        if packets[0] == packet:
-            rawpacket = packet
-            packet = packet.split()
-            packet = [x for x in packet if x != b""]
-            if packet != []:
-                packetobj = packobj.get(packet[0].strip(),UnknownPacket)()
-                packetobj.parse(packet,rawpacket)
-                self.parsed.append(packetobj)
-        else:
-            [self.parsepacket(x) for x in packets if x.strip() != ""]
+        packet = packets.pop(0)
+        rawpacket = packet
+        packet = packet.split()
+        packet = [x for x in packet if x != b""]
+        if packet != []:
+            packetobj = packobj.get(packet[0].strip(),UnknownPacket)()
+            packetobj.parse(packet,rawpacket)
+            self.parsed.append(packetobj)
+        if packets != []:
+            self.parsepacket(packets)
 # @todo add more packet types to parser
 class BasePacket:
     def __init__(self,direction):
