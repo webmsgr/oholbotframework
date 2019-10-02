@@ -19,6 +19,8 @@ class Parser():
             self.parsed.append(packetobj)
         if packets != []:
             self.parsepacket(packets)
+class MapData:
+    pass
 # @todo add more packet types to parser
 class BasePacket:
     def __init__(self,direction):
