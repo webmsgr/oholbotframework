@@ -60,5 +60,5 @@ def Route(func=passthrough):
             running = False
     client.close()
     server.close()
-
-Route()
+if __name__ == "__main__":
+    Route()
