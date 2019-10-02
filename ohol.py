@@ -37,7 +37,10 @@ def Route():
                     running = False
                 print("S <-- {}".format(buf))
                 myparser.parsepacket(buf)
-                server.send(buf)
+                packets = myparser.parsed
+                newbuf = '\n'.join([x.packet() for x in packets])
+                myparser.parsed = []
+                server.send(newbuf)
 
             if server in rlist and running:
                 buf = server.recv(4096)
@@ -46,12 +49,14 @@ def Route():
                 # Parse, modify, or halt traffic here
                 print("C <-- {}".format(buf))
                 myparser.parsepacket(buf)
-                client.send(buf)
+                packets = myparser.parsed
+                newbuf = '\n'.join([x.packet() for x in packets])
+                myparser.parsed = []
+                client.send(newbuf)
         except Exception as e:
             traceback.print_exception(*sys.exc_info())
             running = False
     client.close()
     server.close()
-    return myparser.parsed
 
-packets = Route()
+Route()
