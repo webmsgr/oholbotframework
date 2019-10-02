@@ -26,8 +26,8 @@ class UnknownPacket(BasePacket):
     def __init__(self):
         super().__init__("?")
         self.type = "UNKNOWN"
-    def parse(self,args,_):
-        self.data = args
+    def parse(self,args,raw):
+        self.data = raw
 
 class Frame(BasePacket):
     def __init__(self):
