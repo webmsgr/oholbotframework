@@ -12,8 +12,9 @@ BIND_ADDR = ''
 BIND_PORT = 8006
 SERV_ADDR = 'server1.onehouronelife.com'
 SERV_PORT = 8005
-# @todo add hooks for packet injection/modifing
-def Route():
+def passthrough(packets,direction):
+    return packets
+def Route(func=passthrough):
     myparser = parser.Parser()
     listener = socket.socket()
     listener.bind((BIND_ADDR, BIND_PORT))
@@ -37,6 +38,7 @@ def Route():
                 print("S <-- {}".format(buf))
                 myparser.parsepacket(buf)
                 packets = myparser.parsed
+                packets = func(packets,"s")
                 newbuf = '\n'.join([x.packet() for x in packets])
                 myparser.parsed = []
                 server.send(newbuf)
@@ -49,6 +51,7 @@ def Route():
                 print("C <-- {}".format(buf))
                 myparser.parsepacket(buf)
                 packets = myparser.parsed
+                packets = func(packets,"c")
                 newbuf = '\n'.join([x.packet() for x in packets])
                 myparser.parsed = []
                 client.send(newbuf)
