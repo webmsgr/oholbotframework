@@ -123,7 +123,7 @@ class CompressedMessage(BasePacket):
         self.data = rawdata
         self.compressed = ex
         self.parser = parser
- class MapChunk(BasePacket):
+class MapChunk(BasePacket):
     def __init__(self):
         super().__init__("c")
         self.type = "MAP_CHUNK" 
