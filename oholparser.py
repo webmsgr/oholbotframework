@@ -3,6 +3,8 @@ class Parser():
     def __init__(self):
         self.parsed = []
     def parsepacket(self,packet):
+        # @todo fix packet parser
+        # @body a new implemtation would allow for the parsing of map chunks and compressed messages, both of which show up as two packets
         packets = packet.split(b"#")
         if packets[0] == packet:
             rawpacket = packet
