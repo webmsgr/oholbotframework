@@ -1,5 +1,4 @@
 import zlib # for decompressing/compressing binary data
-import multiprocessing # for loading compressed binary data and map chunks in the background for speed. God help me
 class Parser():
     def __init__(self):
         self.parsed = []
