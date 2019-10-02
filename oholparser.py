@@ -122,7 +122,13 @@ class CompressedMessage(BasePacket):
     def parse(self,data,rawdata,ex):
         self.data = rawdata
         self.compressed = ex
- 
+ class MapChunk(BasePacket):
+    def __init__(self):
+        super().__init__("c")
+        self.type = "MAP_CHUNK" 
+    def parse(self,data,rawdata,ex):
+        self.data = rawdata
+        self.compressed = ex
 
 packobj = {b"FM":Frame,
             b"SHUTDOWN":Shutdown,
@@ -134,5 +140,6 @@ packobj = {b"FM":Frame,
             b"LOGIN": Login,
             b"PU": PlayerInfo,
             b"PS": PlayerSaid,
-            b"CM": CompressedMessage
+            b"CM": CompressedMessage,
+            b"MC": MapChunk
             }
