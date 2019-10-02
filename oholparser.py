@@ -12,7 +12,7 @@ class Parser():
         packet = [x for x in packet if x != b""]
         if packet != []:
             packetobj = packobj.get(packet[0].strip(),UnknownPacket)()
-            if packet[0].strip() in ["CM"]:
+            if packet[0].strip() in [b"CM",b"MC"]:
                 exdata = packets.pop(0)
                 packetobj.parse(packet,rawpacket,exdata)
             else:
