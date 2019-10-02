@@ -16,6 +16,7 @@ class Parser():
                 self.parsed.append(packetobj)
         else:
             [self.parsepacket(x) for x in packets if x.strip() != ""]
+# @todo add more packet types to parser
 class BasePacket:
     def __init__(self,direction):
         self.direct = direction
