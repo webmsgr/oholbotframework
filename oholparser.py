@@ -14,7 +14,7 @@ class Parser():
             packetobj = packobj.get(packet[0].strip(),UnknownPacket)()
             if packet[0].strip() in [b"CM",b"MC"]:
                 exdata = packets.pop(0)
-                packetobj.parse(packet,rawpacket,exdata)
+                packetobj.parse(packet,rawpacket,exdata,self.parsepacket)
             else:
                 packetobj.parse(packet,rawpacket)
             self.parsed.append(packetobj)
@@ -119,14 +119,15 @@ class CompressedMessage(BasePacket):
     def __init__(self):
         super().__init__("c")
         self.type = "COMPRESSED_MESSAGE" 
-    def parse(self,data,rawdata,ex):
+    def parse(self,data,rawdata,ex,parser):
         self.data = rawdata
         self.compressed = ex
+        self.parser = parser
  class MapChunk(BasePacket):
     def __init__(self):
         super().__init__("c")
         self.type = "MAP_CHUNK" 
-    def parse(self,data,rawdata,ex):
+    def parse(self,data,rawdata,ex,_):
         self.data = rawdata
         self.compressed = ex
 
