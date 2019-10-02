@@ -25,7 +25,7 @@ class BasePacket:
     def parse(self,args,raw): # takes the raw packet and populates itself
         self.data = raw
     def packet(self): # takes self and converts it to a packet
-        pass
+        return self.data
 class UnknownPacket(BasePacket):
     def __init__(self):
         super().__init__("?")
