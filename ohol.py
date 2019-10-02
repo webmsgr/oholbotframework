@@ -7,7 +7,6 @@ import oholparser as parser
 import socket
 import time
 import sys
-
 TIME_WAIT = 0.01
 BIND_ADDR = ''
 BIND_PORT = 8006
