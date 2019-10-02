@@ -1,4 +1,4 @@
-"""Parse client/server packets into a object and allow converting from the object to a packet"""
+
 import zlib # for decompressing/compressing binary data
 import multiprocessing # for loading compressed binary data and map chunks in the background for speed. God help me
 class Parser():
@@ -115,6 +115,7 @@ class PlayerSaid(BasePacket):
         self.messages = []
         for token in tokens:
             self.messages.append(token.split(" "))
+# @todo decompression
 class CompressedMessage(BasePacket):
     def __init__(self):
         super().__init__("c")
