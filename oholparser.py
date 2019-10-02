@@ -12,7 +12,11 @@ class Parser():
         packet = [x for x in packet if x != b""]
         if packet != []:
             packetobj = packobj.get(packet[0].strip(),UnknownPacket)()
-            packetobj.parse(packet,rawpacket)
+            if packet[0].strip() in ["CM"]:
+                exdata = packets.pop(0)
+                packetobj.parse(packet,rawpacket,exdata)
+            else:
+                packetobj.parse(packet,rawpacket)
             self.parsed.append(packetobj)
         if packets != []:
             self.parsepacket(packets)
@@ -111,6 +115,14 @@ class PlayerSaid(BasePacket):
         self.messages = []
         for token in tokens:
             self.messages.append(token.split(" "))
+class CompressedMessage(BasePacket):
+    def __init__(self):
+        super().__init__("c")
+        self.type = "COMPRESSED_MESSAGE" 
+    def parse(self,data,rawdata,ex):
+        self.data = rawdata
+        self.compressed = ex
+ 
 
 packobj = {b"FM":Frame,
             b"SHUTDOWN":Shutdown,
@@ -121,5 +133,6 @@ packobj = {b"FM":Frame,
             b"NO_LIFE_TOKENS":No_life_tokens,
             b"LOGIN": Login,
             b"PU": PlayerInfo,
-            b"PS": PlayerSaid
+            b"PS": PlayerSaid,
+            b"CM": CompressedMessage
             }
