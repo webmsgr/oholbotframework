@@ -16,6 +16,14 @@ SERV_ADDR = 'server1.onehouronelife.com'
 SERV_PORT = 8005
 def passthrough(packets,direction):
     return packets
+def messageWorker(queue,out):
+    pass
+def packetParserWorker(packet):
+    pass
+def clientThread(pipe):
+    pass
+def serverThread(pipe):
+    pass
 def Route(func=passthrough):
     myparser = parser.Parser()
     listener = socket.socket()
