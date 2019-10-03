@@ -7,8 +7,8 @@ import oholparser as parser
 import socket
 import time
 import sys
-import multiprocessing
-import threading
+import multiprocessing # oh no
+import threading # its multiprocessing/threading time!
 TIME_WAIT = 0.01
 BIND_ADDR = ''
 BIND_PORT = 8006
