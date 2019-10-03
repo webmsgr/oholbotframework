@@ -14,7 +14,7 @@ BIND_ADDR = ''
 BIND_PORT = 8006
 SERV_ADDR = 'server1.onehouronelife.com'
 SERV_PORT = 8005
-def themanager(amt=2): # 2 * 3 = 6 proccesses
+def themanager(amt=2): # x * x+1 = p, 2 * 3 = 6 proccesses
     pass
 def passthrough(packets,direction):
     return packets
