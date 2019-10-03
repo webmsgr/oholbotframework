@@ -14,15 +14,17 @@ BIND_ADDR = ''
 BIND_PORT = 8006
 SERV_ADDR = 'server1.onehouronelife.com'
 SERV_PORT = 8005
+def themanager(amt=2): # 2 * 3 = 6 proccesses
+    pass
 def passthrough(packets,direction):
     return packets
-def messageWorker(queue,out):
+def messageWorker(queue,amt=2):
     pass
 def packetParserWorker(packet):
     pass
-def clientThread(pipe):
+def clientThread(pipe,socket):
     pass
-def serverThread(pipe):
+def serverThread(pipe,socket):
     pass
 def Route(func=passthrough):
     myparser = parser.Parser()
