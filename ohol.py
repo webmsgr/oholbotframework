@@ -4,6 +4,7 @@ passes them to bot code that allows for packet injection and packet reading"""
 import select
 import oholparser as parser
 import sys
+import socket
 import multiprocessing as mp
 import threading # its multiprocessing/threading time!
 import concurrent.futures as ThePools # Thread/ProcessPools
