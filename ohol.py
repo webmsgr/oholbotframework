@@ -48,8 +48,11 @@ def themanager(serversocket,clientsocket):
         
 def passthrough(packets,direction):
     return packets
-def messageWorker(message):
+def messageWorker(message): # takes in packets, parses into objects, sends to bot function, then converts the object back. uses a process pool for each operation
     return message
+def packetParser(packet): # converts from a packet string to a object
+    pass
+def packetToBuffer(packet): # converts from a packet object to a string that can be sent over socket
 def Server(pipe,msocket):
     msocket.setblocking(0)
     while True:
