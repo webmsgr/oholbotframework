@@ -1,11 +1,8 @@
 #! /usr/bin/env python3
 """A One Hour One Life decoder/encoder server, recives messages from the client and
 passes them to bot code that allows for packet injection and packet reading"""
-import traceback
 import select
 import oholparser as parser
-import socket
-import time
 import sys
 import multiprocessing as mp
 import threading # its multiprocessing/threading time!
