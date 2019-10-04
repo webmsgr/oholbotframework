@@ -18,7 +18,7 @@ def main():
           name = data.pop(1)
           data = (",".join(data)).split(",")
           notknown = []
-          thisobject = {x[0]:x[1] for x in [y.split("=") for y in data if "=" in data else ["hasunknown","true",notknown.append(y)]}
+          thisobject = {x[0]:x[1] for x in [y.split("=") for y in data if "=" in data else ["hasunknown","true",notknown.append(y)]]}
           thisobject["name"] = name
           thisobject["unknown"] = notknown
           objectobjects[thisobject["id"]] = thisobject
