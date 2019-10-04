@@ -29,12 +29,14 @@ def themanager(serversocket,clientsocket):
         while serverThread.is_alive() and clientThread.is_alive():
             if server.poll():
                 data = server.recv()
-                if data == b"": continue
+                if data == b"": 
+                    continue
                 print("C <-- {}".format(data))
                 parsingclient.append(pool.submit(messageWorker,data))
             if client.poll():
                 data = client.recv()
-                if data == b"": continue
+                if data == b"": 
+                    continue
                 print("S <-- {}".format(data))
                 parsingserver.append(pool.submit(messageWorker,data))
             while parsingserver != [] and parsingserver[0].done():
