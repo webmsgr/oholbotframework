@@ -14,6 +14,8 @@ class Parser():
                 exdata = packets.pop(0)
                 packetobj.parse(packet,rawpacket,exdata,self.parsepacket)
             else:
+                if type(packetobj) == type(UnknownPacket()):
+                    packetobj.__init__("c" if client else "s")
                 packetobj.parse(packet,rawpacket)
             self.parsed.append(packetobj)
         if packets != []:
@@ -31,8 +33,8 @@ class BasePacket:
     def packet(self): # takes self and converts it to a packet
         return self.data
 class UnknownPacket(BasePacket):
-    def __init__(self):
-        super().__init__("?")
+    def __init__(self,dir="?"):
+        super().__init__(dir)
         self.type = "UNKNOWN"
     def parse(self,args,raw):
         self.data = raw
