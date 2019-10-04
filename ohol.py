@@ -7,8 +7,9 @@ import oholparser as parser
 import socket
 import time
 import sys
-import multiprocessing as mp # oh no
+import multiprocessing as mp
 import threading # its multiprocessing/threading time!
+import concurrent.futures as ThePools # Thread/ProcessPools
 TIME_WAIT = 0.01
 BIND_ADDR = ''
 BIND_PORT = 8006
@@ -24,22 +25,22 @@ def themanager(serversocket,clientsocket):
     serverThread.start()
     parsingserver = []
     parsingclient = []
-    with mp.Pool(processes=4) as pool:
+    with ThePools.ThreadPoolExecutor(max_workers=4) as pool:
         while serverThread.is_alive() and clientThread.is_alive():
             if server.poll():
                 data = server.recv()
                 if data == b"": continue
                 print("C <-- {}".format(data))
-                parsingclient.append(pool.apply_async(messageWorker,(data,)))
+                parsingclient.append(pool.submit(messageWorker,data))
             if client.poll():
                 data = client.recv()
                 if data == b"": continue
                 print("S <-- {}".format(data))
-                parsingserver.append(pool.apply_async(messageWorker,(data,)))
-            while parsingserver != [] and parsingserver[0].ready():
-                server.send(parsingserver.pop(0).get())
-            while parsingclient != [] and parsingclient[0].ready():
-                client.send(parsingclient.pop(0).get())
+                parsingserver.append(pool.submit(messageWorker,data))
+            while parsingserver != [] and parsingserver[0].done():
+                server.send(parsingserver.pop(0).result())
+            while parsingclient != [] and parsingclient[0].done():
+                client.send(parsingclient.pop(0).result())
         
         
         
