@@ -53,6 +53,7 @@ def messageWorker(message): # takes in packets, parses into objects, sends to bo
 def packetParser(packet): # converts from a packet string to a object
     pass
 def packetToBuffer(packet): # converts from a packet object to a string that can be sent over socket
+    pass
 def Server(pipe,msocket):
     msocket.setblocking(0)
     while True:
