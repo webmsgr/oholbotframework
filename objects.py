@@ -1,4 +1,6 @@
+#! /user/bin/env python3
 # Converts all objects in the OneLifeData repo into a pickle file containing all information about them, used for bots
+
 import os
 import random
 
