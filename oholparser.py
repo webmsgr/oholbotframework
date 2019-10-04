@@ -2,11 +2,11 @@ import zlib # for decompressing/compressing binary data
 class Parser():
     def __init__(self):
         self.parsed = []
-    def parsepacket(self,packet):
+    def parsepacket(self,packet,client): # client tells if the packet is going to client
         packets = packet.split(b"#")
         packet = packets.pop(0)
         rawpacket = packet
-        packet = packet.split()
+        packet = packet.split(b"\n" if client else b" ")
         packet = [x for x in packet if x != b""]
         if packet != []:
             packetobj = packobj.get(packet[0].strip(),UnknownPacket)()
