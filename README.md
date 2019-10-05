@@ -4,4 +4,8 @@ Acts like a mitm to send/change data coming to and from the server. Uses threads
 
 ***WiP***
 
-Currently working on speeding up by using mulithreading to read and send data to client and server and multiple proccesses to parse the packets. Work is in the multithread-patch branch
+# Using oholobjects.py standalone
+You can use oholobjects.py standalone in other code,
+just make sure to call `bootstrap()` before anything else to clone the OneLifeData repo to your computer,
+and call `debootstrap()` after.
+Only do this if you are not providing the files yourself.

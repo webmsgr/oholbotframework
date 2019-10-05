@@ -3,6 +3,12 @@
 import os
 import glob
 import json
+import shutil
+
+def bootstrap():
+    os.system("git clone https://github.com/jasonrohrer/OneLifeData7/ OneLifeData")
+def debootstrap():
+    shutil.rmtree('./OneLifeData/')
 class OHOLObject():
     def __init__(self,data):
         self.props = data
