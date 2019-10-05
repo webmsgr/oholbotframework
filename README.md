@@ -5,7 +5,5 @@ Acts like a mitm to send/change data coming to and from the server. Uses threads
 ***WiP***
 
 # Using oholobjects.py standalone
-You can use oholobjects.py standalone in other code,
-just make sure to call `bootstrap()` before anything else to clone the OneLifeData repo to your computer,
-and call `debootstrap()` after.
+If you are not providing the files yourself, you can use `bootstrap()` to clone the repo with git. You can also use `debootstrap()` to remove the cloned repo afterwords
 ***Only do this if you are not providing the files yourself.***
