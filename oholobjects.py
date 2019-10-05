@@ -47,15 +47,6 @@ class OHOLObjects():
         out = {x:self.objs[self.nameid[x]] for x in self.nameid if objname in x}
         return out
 
-def objectuseandused(objid,trans=None,obj=None):
-    trans,obj = graball(trans,obj)
-    tobj = obj.get(str(objid),None)
-    if tobj is None:
-        return None
-    else:
-        found = [trans[tran] for tran in trans if trans[tran]["actor"] == tobj["id"] or trans[tran]["target"] == tobj["id"] or trans[tran]["newActor"] == tobj["id"] or trans[tran]["newTarget"] == tobj["id"]]
-        return found
-
 def graball(trans=None,obj=None):
     out = [trans,obj]
     if trans is None:
