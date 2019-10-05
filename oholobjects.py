@@ -1,26 +1,109 @@
 #! /user/bin/env python3
-# Converts all objects in the OneLifeData repo into a pickle file containing all information about them, used for bots
 
 import os
-import random
+import glob
+import json
+class OHOLObject():
+    def __init__(self,data):
+        self.props = data
+    def __getattr__(self,prop):
+        if prop in self.props:
+            return self.props[prop]
+        else:
+            raise AttributeError("No property named {}".format(prop))
+    def __hash__(self):
+        return hash(self.props)
+    def __repr__(self):
+        return "<OHOL Object {}>".format(self.name)
+    def __getstate__(self):
+        return self.props
+    def __setstate__(self,data):
+        self.props = data
+def sname(name):
+    return name.lower().replace(" ","_").replace("#","").replace("+","").replace("-","_").replace("@","any").replace(">","").replace("*","")
+class OHOLObjects():
+    def __init__(self):
+        self.objs = parseObjects()
+        for id in self.objs:
+            self.objs[id] = OHOLObject(self.objs[id])
+        self.nameid = {}
+        for obj in self.objs:
+            self.nameid[sname(self.objs[obj].name)] = self.objs[obj].id
+    def __getattr__(self,name):
+        if name in self.nameid:
+            return self.objs[self.nameid[name]]
+        else:
+            raise AttributeError("No object named {}".format(name))
+    def __repr__(self):
+        return "<All OHOL Objects>"
+    def __getstate__(self):
+        return (self.objs,self.nameid)
+    def __setstate__(self,data):
+        self.objs,self.nameid = data
+    def byid(self,id):
+        return self.objs[id]
+    def find(self,objname):
+        objname = sname(objname)
+        out = {x:self.objs[self.nameid[x]] for x in self.nameid if objname in x}
+        return out
 
-def main():
-    print("Grabbing submodule")
-    os.system("git submodule init")
-    os.system("git submodule update")
-    print("Reading objects")
-    objects = [os.path.join("./OneLifeData/objects/",x) for x in os.listdir("./OneLifeData/objects/")]
-    print("Found {} objects".format(len(objects))
+def objectuseandused(objid,trans=None,obj=None):
+    trans,obj = graball(trans,obj)
+    tobj = obj.get(str(objid),None)
+    if tobj is None:
+        return None
+    else:
+        found = [trans[tran] for tran in trans if trans[tran]["actor"] == tobj["id"] or trans[tran]["target"] == tobj["id"] or trans[tran]["newActor"] == tobj["id"] or trans[tran]["newTarget"] == tobj["id"]]
+        return found
+
+def graball(trans=None,obj=None):
+    out = [trans,obj]
+    if trans is None:
+        out[0] = parseTransitions()
+    if obj is None:
+        out[1] = parseObjects()
+    return out
+
+
+
+def parseTransitions():
+    transitions = glob.glob("./OneLifeData/transitions/*.txt")
+    obj = {}
+    for transition in transitions:
+        thisobj = {}
+        useLastActor = False
+        useLastTarget = False
+        if "_LA" in transition:
+            useLastActor = True
+        elif "_L" in transition:
+            useLastTarget = True
+        actor,target = os.path.basename(transition).split(".")[0].split("_")[:2]
+        thisobj["actor"] = actor
+        thisobj["target"] = target
+        with open(transition) as fl:
+            data = fl.read()
+        data = data.split(" ")
+        inde = ["newActor","newTarget","autoDecaySeconds","actorMinUseFraction","targetMinUseFraction","reverseUseActorFlag","reverseUseTargetFlag","move","desiredMoveDist","noUseActorFlag","noUseTargetFlag"]
+        for dt, ree in enumerate(data):
+            thisobj[inde[dt]] = ree
+        thisobj["useLastActor"] = useLastActor
+        thisobj["useLastTarget"] = useLastTarget
+        obj[os.path.basename(transition).split(".")[0]] = thisobj
+    return obj
+def parseObjects():
+    objects = glob.glob("./OneLifeData/objects/*.txt")
     objectobjects = {}
     for i in objects:
-          with open(i) as file:
-              data = file.read().split("\n")
-          name = data.pop(1)
-          data = (",".join(data)).split(",")
-          notknown = []
-          thisobject = {x[0]:x[1] for x in [y.split("=") for y in data if "=" in data else ["hasunknown","true",notknown.append(y)]]}
-          thisobject["name"] = name
-          thisobject["unknown"] = notknown
-          objectobjects[thisobject["id"]] = thisobject
-if __name__ = "__main__":
-    main()
+        if "nextObjectNumber" in i:
+            continue
+        with open(i) as file:
+            data = file.read().split("\n")
+        name = data.pop(1)
+        data = (",".join(data)).split(",")
+        notknown = []
+        thisobject = {x[0]:x[1] for x in [y.split("=") for y in data if "=" in data]}
+        thisobject["name"] = name
+        thisobject["id"] = thisobject.get("id",os.path.basename(i).split(".")[0])
+        thisobject["unknown"] = notknown
+        objectobjects[thisobject["id"]] = thisobject
+    return objectobjects
