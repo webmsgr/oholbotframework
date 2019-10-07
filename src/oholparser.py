@@ -1,4 +1,7 @@
+from __future__ import print_function
 import zlib # for decompressing/compressing binary data
+
+
 class Parser():
     def __init__(self):
         self.parsed = []
@@ -19,7 +22,7 @@ class Parser():
                 packetobj.parse(packet,rawpacket)
             self.parsed.append(packetobj)
         if packets != []:
-            self.parsepacket(packets)
+            self.parsepacket(packets,client)
 class MapData:
     pass
 # @todo add more packet types to parser
@@ -121,7 +124,7 @@ class PlayerSaid(BasePacket):
 class CompressedMessage(BasePacket):
     def __init__(self):
         super().__init__("c")
-        self.type = "COMPRESSED_MESSAGE" 
+        self.type = "COMPRESSED_MESSAGE"
     def parse(self,data,rawdata,ex,parser):
         self.data = rawdata
         self.compressed = ex
@@ -129,7 +132,7 @@ class CompressedMessage(BasePacket):
 class MapChunk(BasePacket):
     def __init__(self):
         super().__init__("c")
-        self.type = "MAP_CHUNK" 
+        self.type = "MAP_CHUNK"
     def parse(self,data,rawdata,ex,_):
         self.data = rawdata
         self.compressed = ex

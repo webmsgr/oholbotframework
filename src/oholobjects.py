@@ -1,15 +1,9 @@
 #! /user/bin/env python3
-
+from __future__ import print_function
 import os
 import glob
 import json
 import shutil
-
-
-
-
-
-
 def bootstrap():
     os.system("git clone https://github.com/jasonrohrer/OneLifeData7/ OneLifeData")
 def debootstrap():
@@ -30,6 +24,10 @@ class OHOLObject():
         return self.props
     def __setstate__(self,data):
         self.props = data
+    def __getitem__(self, item):
+        return self.props[item]
+    def __iter__(self):
+        return iter(self.props)
 def sname(name):
     return name.lower().replace(" ","_").replace("#","").replace("+","").replace("-","_").replace("@","any").replace(">","").replace("*","")
 class OHOLObjects():
@@ -57,6 +55,11 @@ class OHOLObjects():
         objname = sname(objname)
         out = {x:self.objs[self.nameid[x]] for x in self.nameid if objname in x}
         return out
+    def __getitem__(self, item):
+        return self.objs[item]
+    def __iter__(self):
+        return iter(self.objs)
+
 
 def graball(trans=None,obj=None):
     out = [trans,obj]

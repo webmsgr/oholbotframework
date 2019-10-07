@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+from __future__ import print_function
 """A One Hour One Life decoder/encoder server, recives messages from the client and
 passes them to bot code that allows for packet injection and packet reading"""
 import select
@@ -8,6 +9,7 @@ import socket
 import multiprocessing as mp
 import threading # its multiprocessing/threading time!
 import concurrent.futures as ThePools # Thread/ProcessPools
+
 TIME_WAIT = 0.01
 BIND_ADDR = ''
 BIND_PORT = 8006
@@ -27,13 +29,13 @@ def themanager(serversocket,clientsocket):
         while serverThread.is_alive() and clientThread.is_alive():
             if server.poll():
                 data = server.recv()
-                if data == b"": 
+                if data == b"":
                     continue
                 print("C <-- {}".format(data))
                 parsingclient.append(pool.submit(messageWorker,data))
             if client.poll():
                 data = client.recv()
-                if data == b"": 
+                if data == b"":
                     continue
                 print("S <-- {}".format(data))
                 parsingserver.append(pool.submit(messageWorker,data))
@@ -41,9 +43,9 @@ def themanager(serversocket,clientsocket):
                 server.send(parsingserver.pop(0).result())
             while parsingclient != [] and parsingclient[0].done():
                 client.send(parsingclient.pop(0).result())
-        
-        
-        
+
+
+
 def passthrough(packets,direction):
     return packets
 def messageWorker(message): # takes in packets, parses into objects, sends to bot function, then converts the object back. uses a process pool for each operation
@@ -64,7 +66,7 @@ def Server(pipe,msocket):
                 msocket.send(pipe.recv())
         except:
             break
-            
+
 def Route(func=passthrough):
     myparser = parser.Parser()
     listener = socket.socket()
