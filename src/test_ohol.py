@@ -4,5 +4,7 @@ import oholobjects
 
 def test_objects():
     obj = oholobjects.OHOLObjects()
-    hatchetname = obj.find("hatchet")[0]
+    hatchets = obj.find("hatchet")
+    for hatchet in hatchets:
+        hatchetname = hatchet
     assert obj.__getattr__(hatchetname) == obj.fromid("71")
