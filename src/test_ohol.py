@@ -23,7 +23,7 @@ def transitions(trans=None):
         trans = oholobjects.OHOLTransitions()
     for tran in trans:
         tran = trans[tran]
-        for num,prop in enumerate(tran.actor,tran.target,tran.newActor,tran.newTarget):
+        for num,prop in enumerate((tran.actor,tran.target,tran.newActor,tran.newTarget)):
             try:
                 ex = False
                 tran.obj.byid(prop)
