@@ -27,13 +27,13 @@ def transitions(trans=None):
     for tran in trans:
         print("testing {}...".format(tran),end=" ")
         tran = trans[tran]
-        for prop in (tran.actor,tran.target,tran.newActor,tran.newTarget):
+        for num,prop in enumerate(tran.actor,tran.target,tran.newActor,tran.newTarget):
             try:
                 ex = False
                 tran.obj.byid(prop) 
             except:
                 ex = True
-                print("FAIL")
+                print("FAIL on {}".format(["actor","target","newActor","newTarget"][num])
             assert ex == False
         print("OK")
     return True
