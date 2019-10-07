@@ -56,7 +56,7 @@ class OHOLObjects():
         out = {x:self.objs[self.nameid[x]] for x in self.nameid if objname in x}
         return out
     def __getitem__(self, item):
-        return self.objs[item]
+        return self.objs[self.nameid[item]]
     def __iter__(self):
         return iter(self.objs)
 
