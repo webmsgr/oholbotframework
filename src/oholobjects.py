@@ -12,7 +12,7 @@ def test_objects():
     assert isinstance(obj,OHOLObjects)
     hatchet = obj.stone_hatchet
     hatchet2 = obj.fromid(71)
-    assert hachtet == hatchet2
+    assert hatchet == hatchet2
     return
 
 def bootstrap():
