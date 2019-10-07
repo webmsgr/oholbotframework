@@ -7,9 +7,7 @@ import shutil
 
 
 
-def test_objects():
-    obj = OHOLObjects()
-    assert obj.stone_hatchet == obj.fromid("71")
+
 
 
 def bootstrap():
