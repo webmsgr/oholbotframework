@@ -22,7 +22,14 @@ def objects(objs=None):
         print("OK")
     return True
 def transitions(trans=None):
-    return True
+    for tran in trans:
+        for prop in (tran.actor,tran.target,tran.newActor,tran.newTarget):
+            try:
+                ex = False
+                tran.obj.byid(prop) 
+            except:
+                ex = True
+            assert ex == False
 
 
 def test_all():
