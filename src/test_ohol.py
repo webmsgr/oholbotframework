@@ -9,8 +9,7 @@ def test_objects():
         try:
             assert objs.__getattr__(obj) == objs.byid(objs.nameid[obj])
             objobj = objs.__getattr__(obj)
-            print(objs.find(objobj["name"][:-2]))
-            assert False
+            assert obj in objs.find(objobj.name[:-2])
         except AssertionError as e:
             print("FAIL")
             raise e
