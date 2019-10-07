@@ -1,3 +1,6 @@
 [submodule "OneLifeData"]
 	path = OneLifeData
 	url = https://github.com/jasonrohrer/OneLifeData7
+[submodule "src/OneLifeData"]
+	path = src/OneLifeData
+	url = https://github.com/jasonrohrer/OneLifeData7
