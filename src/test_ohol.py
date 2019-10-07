@@ -22,19 +22,27 @@ def objects(objs=None):
         print("OK")
     return True
 def transitions(trans=None):
+    if trans is None:
+        trans = oholobjects.OHOLTransitions()
     for tran in trans:
+        print("testing {}...".format(tran),end=" ")
         tran = trans[tran]
         for prop in (tran.actor,tran.target,tran.newActor,tran.newTarget):
             try:
                 ex = False
                 tran.obj.byid(prop) 
+                print("OK")
             except:
                 ex = True
+                print("FAIL")
             assert ex == False
     return True
 
 
 def test_all():
+    print("Grabbing all...")
     objs,trans = oholobjects.graball()
+    print("tesing objects")
     assert objects(objs)
+    print("testing transitions")
     assert transitions(trans)
