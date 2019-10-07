@@ -31,11 +31,11 @@ def transitions(trans=None):
             try:
                 ex = False
                 tran.obj.byid(prop) 
-                print("OK")
             except:
                 ex = True
                 print("FAIL")
             assert ex == False
+        print("OK")
     return True
 
 
