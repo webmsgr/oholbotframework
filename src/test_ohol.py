@@ -4,8 +4,9 @@ import oholparser
 import oholobjects
 
 
-def test_objects():
-    objs = oholobjects.OHOLObjects()
+def objects(objs=None):
+    if objs is None:
+        objs = oholobjects.OHOLObjects()
     for obj in objs.nameid:
         print("testing {}...".format(obj),end=" ")
         try:
@@ -19,4 +20,12 @@ def test_objects():
             print("FAIL")
             raise e
         print("OK")
+    return True
+def transitions(trans=None):
+    return True
 
+
+def test_all():
+    objs,trans = oholobjects.graball()
+    assert objects(objs)
+    assert transitions(trans)
