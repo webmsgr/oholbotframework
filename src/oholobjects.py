@@ -5,6 +5,16 @@ import glob
 import json
 import shutil
 
+
+
+def test_objects():
+    obj = OHOLObjects()
+    assert isinstance(obj,OHOLObjects)
+    hatchet = obj.stone_hatchet
+    hatchet2 = obj.fromid(71)
+    assert hachtet == hatchet2
+    return
+
 def bootstrap():
     os.system("git clone https://github.com/jasonrohrer/OneLifeData7/ OneLifeData")
 def debootstrap():
