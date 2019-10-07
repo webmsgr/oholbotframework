@@ -31,6 +31,7 @@ def transitions(trans=None):
             except:
                 ex = True
             assert ex == False
+    return True
 
 
 def test_all():
