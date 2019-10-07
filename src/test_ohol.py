@@ -33,7 +33,7 @@ def transitions(trans=None):
                 tran.obj.byid(prop) 
             except:
                 ex = True
-                print("FAIL on {}".format(["actor","target","newActor","newTarget"][num])
+                print("FAIL on {}".format(["actor","target","newActor","newTarget"][num]))
             assert ex == False
         print("OK")
     return True
