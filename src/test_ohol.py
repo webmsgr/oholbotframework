@@ -26,10 +26,9 @@ def transitions(trans=None):
         for num,prop in enumerate(tran.actor,tran.target,tran.newActor,tran.newTarget):
             try:
                 ex = False
-                tran.obj.byid(prop) 
+                tran.obj.byid(prop)
             except:
                 ex = True
-                print("FAIL on {}".format(["actor","target","newActor","newTarget"][num]))
             assert ex == False
     return True
 
