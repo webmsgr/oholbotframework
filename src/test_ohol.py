@@ -3,5 +3,7 @@ import oholparser
 import oholobjects
 
 def test_objects():
-    obj = oholobjects.OHOLObjects()
-    assert obj.stone_hatchet == obj.byid("71")
+    objs = oholobjects.OHOLObjects()
+    for obj in objs.nameid:
+        print("testing {}".format(obj))
+        assert objs.__getattr__(obj) == obj.byid(objs.nameid[obj])
