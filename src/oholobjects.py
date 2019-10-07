@@ -9,11 +9,8 @@ import shutil
 
 def test_objects():
     obj = OHOLObjects()
-    assert isinstance(obj,OHOLObjects)
-    hatchet = obj.stone_hatchet
-    hatchet2 = obj.fromid(71)
-    assert hatchet == hatchet2
-    return
+    assert obj.stone_hatchet == obj.fromid("71")
+
 
 def bootstrap():
     os.system("git clone https://github.com/jasonrohrer/OneLifeData7/ OneLifeData")
