@@ -23,6 +23,7 @@ def objects(objs=None):
     return True
 def transitions(trans=None):
     for tran in trans:
+        tran = trans[tran]
         for prop in (tran.actor,tran.target,tran.newActor,tran.newTarget):
             try:
                 ex = False
