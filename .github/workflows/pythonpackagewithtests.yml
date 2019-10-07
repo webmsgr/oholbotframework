@@ -31,6 +31,7 @@ jobs:
     - name: Test with pytest
       run: |
         git submodule init
+        git submodule update
         cd src
         pip install pytest
         pytest
