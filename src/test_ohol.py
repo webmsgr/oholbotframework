@@ -8,7 +8,6 @@ def objects(objs=None):
     if objs is None:
         objs = oholobjects.OHOLObjects()
     for obj in objs.nameid:
-        print("testing {}...".format(obj),end=" ")
         try:
             assert objs.__getattr__(obj) == objs.byid(objs.nameid[obj])
             objobj = objs.__getattr__(obj)
@@ -17,15 +16,12 @@ def objects(objs=None):
             for objprop in objobj:
                 assert objobj[objprop] == objobj.__getattr__(objprop)
         except AssertionError as e:
-            print("FAIL")
             raise e
-        print("OK")
     return True
 def transitions(trans=None):
     if trans is None:
         trans = oholobjects.OHOLTransitions()
     for tran in trans:
-        print("testing {}...".format(tran),end=" ")
         tran = trans[tran]
         for num,prop in enumerate(tran.actor,tran.target,tran.newActor,tran.newTarget):
             try:
@@ -35,7 +31,6 @@ def transitions(trans=None):
                 ex = True
                 print("FAIL on {}".format(["actor","target","newActor","newTarget"][num]))
             assert ex == False
-        print("OK")
     return True
 
 
