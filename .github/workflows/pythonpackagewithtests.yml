@@ -34,4 +34,4 @@ jobs:
         git submodule update
         cd src
         pip install pytest
-        pytest
+        pytest -s
