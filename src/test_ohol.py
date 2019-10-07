@@ -4,4 +4,4 @@ import oholobjects
 
 def test_objects():
     obj = oholobjects.OHOLObjects()
-    assert obj.stone_hatchet == obj.fromid("71")
+    assert obj.stone_hatchet == obj.byid("71")
