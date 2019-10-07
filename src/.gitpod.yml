@@ -21,3 +21,11 @@ github:
     addBadge: true
     # add a label once the prebuild is ready to pull requests (defaults to false)
     addLabel: false
+
+# List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/44_config_start_tasks/
+tasks:
+- init: echo 'prebuilding' # runs during prebuild
+  command: pip3 install pytest
+  command: pip3 install -r requirements.txt
+  command: cd src
+  command: pytest
